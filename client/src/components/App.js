@@ -11,6 +11,7 @@ import {
   decode as decodeBase64,
   encode as encodeBase64,
 } from "@stablelib/base64";
+import generateName from "sillyname";
 
 import Header from './Header';
 import Landing from './Landing';
@@ -73,6 +74,9 @@ class App extends Component {
     const pairA = box.keyPair.fromSecretKey(seedA);
 
     const pairB = box.keyPair();
+    const sillyName = generateName();
+    console.log("Name:", sillyName);
+    console.log("Secret:", encodeBase64(pairB.secretKey));
     const sharedA = box.before(pairB.publicKey, pairA.secretKey);
     const sharedB = box.before(pairA.publicKey, pairB.secretKey);
     const encrypted = encrypt(sharedA, message);
